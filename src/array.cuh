@@ -113,7 +113,7 @@ void CudaArray<T>::quickSort()
 }
 
 template <typename T>
-__global__ void fillKernel(T *data, T value, size_t size)
+__device__ void fillKernel(T *data, T value, size_t size)
 {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < size)
@@ -123,7 +123,7 @@ __global__ void fillKernel(T *data, T value, size_t size)
 }
 
 template <typename T>
-__global__ void mapKernel(T *data, T (*func)(T), size_t size)
+__device__ void mapKernel(T *data, T (*func)(T), size_t size)
 {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < size)
@@ -133,7 +133,7 @@ __global__ void mapKernel(T *data, T (*func)(T), size_t size)
 }
 
 template <typename T>
-__global__ void reduceKernel(T *data, T *result, size_t size, T (*reducer)(T, T), T initialValue)
+__device__ void reduceKernel(T *data, T *result, size_t size, T (*reducer)(T, T), T initialValue)
 {
     extern __shared__ T sharedData[];
 
@@ -159,7 +159,7 @@ __global__ void reduceKernel(T *data, T *result, size_t size, T (*reducer)(T, T)
 }
 
 template <typename T>
-__global__ void mergeKernel(T *data, T *temp, int left, int mid, int right)
+__device__ void mergeKernel(T *data, T *temp, int left, int mid, int right)
 {
     int i = left;
     int j = mid + 1;
@@ -194,7 +194,7 @@ __global__ void mergeKernel(T *data, T *temp, int left, int mid, int right)
 }
 
 template <typename T>
-__global__ void mergeSortKernel(T *data, T *temp, int left, int right)
+__device__ void mergeSortKernel(T *data, T *temp, int left, int right)
 {
     if (left < right)
     {
@@ -232,7 +232,7 @@ __device__ int partition(T *data, int low, int high)
 }
 
 template <typename T>
-__global__ void quickSortKernel(T *data, int low, int high)
+__device__ void quickSortKernel(T *data, int low, int high)
 {
     if (low < high)
     {

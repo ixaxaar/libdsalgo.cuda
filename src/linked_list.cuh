@@ -33,18 +33,18 @@ public:
     void quickSort();
 
 private:
-    static __global__ void insertKernel(Node<T> **head, const T value);
-    static __global__ void removeKernel(Node<T> **head, const T value);
-    static __global__ void traverseKernel(Node<T> *head, void (*func)(const T &));
-    static __global__ void mapKernel(Node<T> *head, T (*func)(T));
-    static __global__ void reduceKernel(Node<T> *head, T *result, T (*reducer)(T, T), T initialValue);
+    static __device__ void insertKernel(Node<T> **head, const T value);
+    static __device__ void removeKernel(Node<T> **head, const T value);
+    static __device__ void traverseKernel(Node<T> *head, void (*func)(const T &));
+    static __device__ void mapKernel(Node<T> *head, T (*func)(T));
+    static __device__ void reduceKernel(Node<T> *head, T *result, T (*reducer)(T, T), T initialValue);
 
-    static __global__ void mergeSortKernel(Node<T> **head);
+    static __device__ void mergeSortKernel(Node<T> **head);
     static Node<T> *mergeSortUtil(Node<T> *head);
     static Node<T> *sortedMerge(Node<T> *a, Node<T> *b);
     static void split(Node<T> *source, Node<T> **frontRef, Node<T> **backRef);
 
-    static __global__ void quickSortKernel(Node<T> **head);
+    static __device__ void quickSortKernel(Node<T> **head);
     static Node<T> *quickSortUtil(Node<T> *head);
     static Node<T> *partition(Node<T> *head, Node<T> **newHead, Node<T> **newEnd);
     static Node<T> *getTail(Node<T> *current);
@@ -69,42 +69,42 @@ template <typename T>
 void CudaLinkedList<T>::insert(const T &value)
 {
     insertKernel<<<1, 1>>>(&head, value);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 }
 
 template <typename T>
 void CudaLinkedList<T>::remove(const T &value)
 {
     removeKernel<<<1, 1>>>(&head, value);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 }
 
 template <typename T>
 void CudaLinkedList<T>::traverse(void (*func)(const T &)) const
 {
     traverseKernel<<<1, 1>>>(head, func);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 }
 
 template <typename T>
 void CudaLinkedList<T>::map(T (*func)(T))
 {
     mapKernel<<<1, 1>>>(head, func);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 }
 
 template <typename T>
 T CudaLinkedList<T>::reduce(T (*reducer)(T, T), T initialValue) const
 {
     T *result;
-    CHECK_CUDA_ERROR(cudaMalloc(&result, sizeof(T)));
-    CHECK_CUDA_ERROR(cudaMemcpy(result, &initialValue, sizeof(T), cudaMemcpyHostToDevice));
+    🟩(cudaMalloc(&result, sizeof(T)));
+    🟩(cudaMemcpy(result, &initialValue, sizeof(T), cudaMemcpyHostToDevice));
 
     reduceKernel<<<1, 1>>>(head, result, reducer, initialValue);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 
     T hostResult;
-    CHECK_CUDA_ERROR(cudaMemcpy(&hostResult, result, sizeof(T), cudaMemcpyDeviceToHost));
+    🟩(cudaMemcpy(&hostResult, result, sizeof(T), cudaMemcpyDeviceToHost));
     cudaFree(result);
 
     return hostResult;
@@ -114,28 +114,28 @@ template <typename T>
 void CudaLinkedList<T>::mergeSort()
 {
     mergeSortKernel<<<1, 1>>>(&head);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 }
 
 template <typename T>
 void CudaLinkedList<T>::quickSort()
 {
     quickSortKernel<<<1, 1>>>(&head);
-    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    🟩(cudaDeviceSynchronize());
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::insertKernel(Node<T> **head, const T value)
+__device__ void CudaLinkedList<T>::insertKernel(Node<T> **head, const T value)
 {
     Node<T> *newNode;
-    CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(Node<T>)));
+    🟩(cudaMalloc(&newNode, sizeof(Node<T>)));
     newNode->data = value;
     newNode->next = *head;
     *head = newNode;
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::removeKernel(Node<T> **head, const T value)
+__device__ void CudaLinkedList<T>::removeKernel(Node<T> **head, const T value)
 {
     Node<T> *current = *head;
     Node<T> *prev = nullptr;
@@ -162,7 +162,7 @@ __global__ void CudaLinkedList<T>::removeKernel(Node<T> **head, const T value)
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::traverseKernel(Node<T> *head, void (*func)(const T &))
+__device__ void CudaLinkedList<T>::traverseKernel(Node<T> *head, void (*func)(const T &))
 {
     Node<T> *current = head;
     while (current != nullptr)
@@ -173,7 +173,7 @@ __global__ void CudaLinkedList<T>::traverseKernel(Node<T> *head, void (*func)(co
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::mapKernel(Node<T> *head, T (*func)(T))
+__device__ void CudaLinkedList<T>::mapKernel(Node<T> *head, T (*func)(T))
 {
     Node<T> *current = head;
     while (current != nullptr)
@@ -184,7 +184,7 @@ __global__ void CudaLinkedList<T>::mapKernel(Node<T> *head, T (*func)(T))
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::reduceKernel(Node<T> *head, T *result, T (*reducer)(T, T), T initialValue)
+__device__ void CudaLinkedList<T>::reduceKernel(Node<T> *head, T *result, T (*reducer)(T, T), T initialValue)
 {
     Node<T> *current = head;
     while (current != nullptr)
@@ -195,7 +195,7 @@ __global__ void CudaLinkedList<T>::reduceKernel(Node<T> *head, T *result, T (*re
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::mergeSortKernel(Node<T> **head)
+__device__ void CudaLinkedList<T>::mergeSortKernel(Node<T> **head)
 {
     *head = mergeSortUtil(*head);
 }
@@ -263,7 +263,7 @@ void CudaLinkedList<T>::split(Node<T> *source, Node<T> **frontRef, Node<T> **bac
 }
 
 template <typename T>
-__global__ void CudaLinkedList<T>::quickSortKernel(Node<T> **head)
+__device__ void CudaLinkedList<T>::quickSortKernel(Node<T> **head)
 {
     *head = quickSortUtil(*head);
 }

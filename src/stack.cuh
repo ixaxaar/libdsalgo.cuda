@@ -42,7 +42,7 @@ template <typename T>
 __device__ void CudaStack<T>::push(T value)
 {
     Node<T> *newNode;
-    CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(Node<T>)));
+    🟩(cudaMalloc(&newNode, sizeof(Node<T>)));
     newNode->data = value;
     newNode->next = top;
     top = newNode;

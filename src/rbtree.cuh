@@ -51,7 +51,7 @@ __device__ TreeNode<T> *CudaRBTree<T>::insert(TreeNode<T> *node, TreeNode<T> *pa
     if (node == nullptr)
     {
         TreeNode<T> *newNode;
-        CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(TreeNode<T>)));
+        🟩(cudaMalloc(&newNode, sizeof(TreeNode<T>)));
         newNode->data = value;
         newNode->color = RED;
         newNode->left = nullptr;

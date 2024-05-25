@@ -76,7 +76,7 @@ __device__ TreeNode<T> *CudaBST<T>::insert(TreeNode<T> *node, T value)
     if (node == nullptr)
     {
         TreeNode<T> *newNode;
-        CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(TreeNode<T>)));
+        🟩(cudaMalloc(&newNode, sizeof(TreeNode<T>)));
         newNode->data = value;
         newNode->left = nullptr;
         newNode->right = nullptr;

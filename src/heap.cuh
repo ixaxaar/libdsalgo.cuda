@@ -42,7 +42,7 @@ template <typename T>
 __host__ CudaHeap<T>::CudaHeap(int capacity, HeapType heapType)
     : capacity(capacity), heapType(heapType), size(0)
 {
-    CHECK_CUDA_ERROR(cudaMalloc(&data, capacity * sizeof(T)));
+    🟩(cudaMalloc(&data, capacity * sizeof(T)));
 }
 
 template <typename T>

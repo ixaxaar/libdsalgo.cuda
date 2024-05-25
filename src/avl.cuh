@@ -92,7 +92,7 @@ __device__ TreeNode<T> *CudaAVLTree<T>::insert(TreeNode<T> *node, T value)
     if (node == nullptr)
     {
         TreeNode<T> *newNode;
-        CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(TreeNode<T>)));
+        🟩(cudaMalloc(&newNode, sizeof(TreeNode<T>)));
         newNode->data = value;
         newNode->height = 1;
         newNode->left = nullptr;

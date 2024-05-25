@@ -28,8 +28,8 @@ public:
     __host__ void addVertex(T value);
     __host__ void addEdge(T from, T to);
 
-    __global__ void bfs(T startValue, void (*visit)(const T &));
-    __global__ void dfs(T startValue, void (*visit)(const T &));
+    __device__ void bfs(T startValue, void (*visit)(const T &));
+    __device__ void dfs(T startValue, void (*visit)(const T &));
 
 private:
     __device__ void bfsUtil(GraphNode<T> *startNode, void (*visit)(const T &));
@@ -117,7 +117,7 @@ __device__ void CudaGraph<T>::bfsUtil(GraphNode<T> *startNode, void (*visit)(con
 }
 
 template <typename T>
-__global__ void CudaGraph<T>::bfs(T startValue, void (*visit)(const T &))
+__device__ void CudaGraph<T>::bfs(T startValue, void (*visit)(const T &))
 {
     GraphNode<T> *startNode = nullptr;
     for (auto vertex : vertices)
@@ -150,10 +150,10 @@ __device__ void CudaGraph<T>::dfsUtil(GraphNode<T> *node, void (*visit)(const T 
 }
 
 template <typename T>
-__global__ void CudaGraph<T>::dfs(T startValue, void (*visit)(const T &))
+__device__ void CudaGraph<T>::dfs(T startValue, void (*visit)(const T &))
 {
     bool *visited;
-    CHECK_CUDA_ERROR(cudaMalloc(&visited, vertices.size() * sizeof(bool)));
+    🟩(cudaMalloc(&visited, vertices.size() * sizeof(bool)));
     cudaMemset(visited, 0, vertices.size() * sizeof(bool));
 
     GraphNode<T> *startNode = nullptr;
@@ -166,7 +166,7 @@ __global__ void CudaGraph<T>::dfs(T startValue, void (*visit)(const T &))
         }
     }
     dfsUtil(startNode, visit, visited);
-    CHECK_CUDA_ERROR(cudaFree(visited));
+    🟩(cudaFree(visited));
 }
 
 template <typename T>

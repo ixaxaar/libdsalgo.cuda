@@ -46,8 +46,8 @@ __device__ int CudaHashTable<K, V>::hashFunction(K key) const
 template <typename K, typename V>
 __host__ CudaHashTable<K, V>::CudaHashTable(int capacity) : capacity(capacity)
 {
-    CHECK_CUDA_ERROR(cudaMalloc(&table, capacity * sizeof(HashNode<K, V> *)));
-    CHECK_CUDA_ERROR(cudaMemset(table, 0, capacity * sizeof(HashNode<K, V> *)));
+    🟩(cudaMalloc(&table, capacity * sizeof(HashNode<K, V> *)));
+    🟩(cudaMemset(table, 0, capacity * sizeof(HashNode<K, V> *)));
 }
 
 template <typename K, typename V>
@@ -61,7 +61,7 @@ __device__ void CudaHashTable<K, V>::insert(K key, V value)
 {
     int hashIndex = hashFunction(key);
     HashNode<K, V> *newNode;
-    CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(HashNode<K, V>)));
+    🟩(cudaMalloc(&newNode, sizeof(HashNode<K, V>)));
     newNode->key = key;
     newNode->value = value;
     newNode->next = nullptr;

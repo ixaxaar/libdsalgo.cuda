@@ -43,7 +43,7 @@ template <typename T>
 __device__ void CudaQueue<T>::enqueue(T value)
 {
     Node<T> *newNode;
-    CHECK_CUDA_ERROR(cudaMalloc(&newNode, sizeof(Node<T>)));
+    🟩(cudaMalloc(&newNode, sizeof(Node<T>)));
     newNode->data = value;
     newNode->next = nullptr;
     if (isEmpty())
