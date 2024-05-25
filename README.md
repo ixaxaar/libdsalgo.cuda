@@ -6,7 +6,7 @@ I was trying to revise data structures and algorithms for an interview so I thou
 
 ## Motivation
 
-Because giving entrance exams at fucking 36 years of age is boring as shit.
+Because giving entrance exams at this age is boring as shit.
 
 ## Contains
 
