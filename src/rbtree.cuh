@@ -13,16 +13,6 @@ enum Color
 };
 
 template <typename T>
-struct TreeNode
-{
-    T data;
-    Color color;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode *parent;
-};
-
-template <typename T>
 class CudaRBTree
 {
 private:

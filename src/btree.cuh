@@ -7,14 +7,6 @@
 #include "util.cuh"
 
 template <typename T>
-struct TreeNode
-{
-    T data;
-    TreeNode *left;
-    TreeNode *right;
-};
-
-template <typename T>
 class CudaBinaryTree
 {
 private:

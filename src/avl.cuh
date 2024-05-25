@@ -7,15 +7,6 @@
 #include "util.cuh"
 
 template <typename T>
-struct TreeNode
-{
-    T data;
-    int height;
-    TreeNode *left;
-    TreeNode *right;
-};
-
-template <typename T>
 class CudaAVLTree
 {
 private:
