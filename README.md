@@ -56,3 +56,61 @@ make
 ```
 
 Happy coding and best of luck with your interview preparations and have fun learning CUDA!
+
+### Time and Space Complexities
+
+| Data Structure / Algorithm | Operation                 | Time Complexity | Space Complexity |
+|----------------------------|---------------------------|------------------|------------------|
+| **Array**                  | Access                    | O(1)             | O(n)             |
+|                            | Search                    | O(n)             | O(n)             |
+|                            | Insertion (at end)        | O(1)             | O(n)             |
+|                            | Deletion (at end)         | O(1)             | O(n)             |
+| **Linked List**            | Access                    | O(n)             | O(n)             |
+|                            | Search                    | O(n)             | O(n)             |
+|                            | Insertion (at head)       | O(1)             | O(n)             |
+|                            | Deletion (at head)        | O(1)             | O(n)             |
+| **Stack (Array-based)**    | Push                      | O(1)             | O(n)             |
+|                            | Pop                       | O(1)             | O(n)             |
+|                            | Peek                      | O(1)             | O(n)             |
+| **Stack (Linked List-based)** | Push                   | O(1)             | O(n)             |
+|                            | Pop                       | O(1)             | O(n)             |
+|                            | Peek                      | O(1)             | O(n)             |
+| **Queue (Array-based)**    | Enqueue                   | O(1)             | O(n)             |
+|                            | Dequeue                   | O(1)             | O(n)             |
+| **Queue (Linked List-based)** | Enqueue                | O(1)             | O(n)             |
+|                            | Dequeue                   | O(1)             | O(n)             |
+| **Binary Tree**            | Search                    | O(n)             | O(n)             |
+|                            | Insertion                 | O(n)             | O(n)             |
+|                            | Deletion                  | O(n)             | O(n)             |
+| **Binary Search Tree**     | Search                    | O(log n)         | O(n)             |
+|                            | Insertion                 | O(log n)         | O(n)             |
+|                            | Deletion                  | O(log n)         | O(n)             |
+| **AVL Tree**               | Search                    | O(log n)         | O(n)             |
+|                            | Insertion                 | O(log n)         | O(n)             |
+|                            | Deletion                  | O(log n)         | O(n)             |
+| **Red-Black Tree**         | Search                    | O(log n)         | O(n)             |
+|                            | Insertion                 | O(log n)         | O(n)             |
+|                            | Deletion                  | O(log n)         | O(n)             |
+| **Graph (Adjacency List)** | Add Vertex                | O(1)             | O(V + E)         |
+|                            | Add Edge                  | O(1)             | O(V + E)         |
+|                            | Remove Vertex             | O(V + E)         | O(V + E)         |
+|                            | Remove Edge               | O(E)             | O(V + E)         |
+|                            | BFS                       | O(V + E)         | O(V)             |
+|                            | DFS                       | O(V + E)         | O(V)             |
+| **Hash Table**             | Insert                    | O(1) (average)   | O(n)             |
+|                            | Delete                    | O(1) (average)   | O(n)             |
+|                            | Search                    | O(1) (average)   | O(n)             |
+| **Heap (Min/Max Heap)**    | Insert                    | O(log n)         | O(n)             |
+|                            | Delete                    | O(log n)         | O(n)             |
+|                            | Peek                      | O(1)             | O(n)             |
+| **Merge Sort**             | Sort                      | O(n log n)       | O(n)             |
+| **Quick Sort**             | Sort                      | O(n log n) (avg) | O(log n)         |
+| **Kruskal's Algorithm**    | Minimum Spanning Tree (MST)   | O(E log E)             | O(E + V)               |
+| **Prim's Algorithm**       | Minimum Spanning Tree (MST)   | O(E logV + V log V)| O(V)                  |
+| **Dijkstra's Algorithm**   | Shortest Path                 | O(V^2) or O(E + V log V)| O(V)                  |
+| **Bellman-Ford Algorithm** | Shortest Path                 | O(VE)                  | O(V)                   |
+
+### Notes:
+- **V**: Number of vertices in the graph.
+- **E**: Number of edges in the graph.
+- For **Quick Sort**, the average case time complexity is O(n log n), but the worst-case complexity is O(n^2).
